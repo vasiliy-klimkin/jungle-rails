@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
 
   def show
+
+    @temp = Order.find(params[:id]).line_items
     @order = Order.find(params[:id])
   end
 
