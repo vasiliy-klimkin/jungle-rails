@@ -26,6 +26,31 @@
       </div>
     </div>
 
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+
+          <th>Description</th>
+          <th>Rating</th>
+          <th>Name</th>
+          <th>Date </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @product.reviews.each do |review| %>
+        <tr>
+            <td> <%=review.inspect %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+
+    <%= form_for :review, url: "/products/#{@product.id}/reviews" do |r| %>
+      Description: <%= r.text_area :description%>
+      Rating: <%= r.select :rating,options_for_select([1,2,3,4,5]), {}%>
+      <%= submit_tag("Search") %>
+    <% end %>
   </article>
 
 </section>
