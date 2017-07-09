@@ -29,27 +29,30 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th colspan="2">Product</th>
-
-          <th>Description</th>
-          <th>Rating</th>
+          <th>Review</th>
           <th>Name</th>
-          <th>Date </th>
+          <th>Rating</th>
+          <th>Review Posted At</th>
         </tr>
       </thead>
       <tbody>
-        <% @product.reviews.each do |review| %>
+        <% @product.reviews.reverse.each do |review| %>
         <tr>
-            <td> <%=review.inspect %> </td>
+            <td> <%=review.description %> </td>
+            <td> <%=User.find(review.user_id).email %> </td>
+            <td> <%=review.rating%> </td>
+            <td> <%=review.created_at%> </td>
         </tr>
       <% end %>
     </tbody>
     </table>
 
+    <% if current_user %>
     <%= form_for :review, url: "/products/#{@product.id}/reviews" do |r| %>
       Description: <%= r.text_area :description%>
       Rating: <%= r.select :rating,options_for_select([1,2,3,4,5]), {}%>
-      <%= submit_tag("Search") %>
+      <%= submit_tag("Post Review") %>
+    <% end %>
     <% end %>
   </article>
 
